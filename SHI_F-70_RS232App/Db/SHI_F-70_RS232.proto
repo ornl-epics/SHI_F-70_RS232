@@ -38,11 +38,38 @@ getOH {
 }
 
 # Three temperatures, Compressor He discharge, water outlet, water inlet
-# Please scan the first, others will be driven from here
+# Please scan the first, others will be driven from here.  They must have 
+# the right names...
 # $1 = record prefix, "<beamline>:<area>:"
-getTemps {
+getTempsP {
    out "$TEA%0<crc16>";
    in "$TEA,%03d,%(\${1}:TWO.RVAL)03d,%(\${1}:TWI.RVAL)03d,%*03d,%0<crc16>";
+}
+
+#
+# Three or four temperatures, set up for interrupt i/o scanning for 2, 3, and 4
+#
+getTemp1 {
+   out "$TEA%0<crc16>";
+   in "$TEA,%03d,%*03d,%*03d,%*03d,%0<crc16>";
+}
+getTemp2 {
+   in "$TEA,%*03d,%03d,%*03d,%*03d,%0<crc16>";
+}
+getTemp3 {
+   in "$TEA,%*03d,%*03d,%03d,%*03d,%0<crc16>";
+}
+getTemp4 {
+   in "$TEA,%*03d,%*03d,%*03d,%03d,%0<crc16>";
+}
+
+getPress1 {
+   out "$PRA,%0<crc16>";
+   in "$PRA,%03d,%*03d,%0<crc16>";
+}
+
+getPress2 {
+   in "$PRA,%*03d,%03d,%0<crc16>";
 }
 
 # read a temperature.  ai record, sets rval
