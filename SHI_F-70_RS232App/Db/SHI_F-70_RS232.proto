@@ -1,0 +1,78 @@
+# Stream Device Protocol File
+#
+# Protocol file for Sumitomo [Heavy Industries] F-70 helium compressor using
+# rs232 interface.  Actual interface will be a Moxa NPort 5100
+#
+# SNS, June 2014
+#
+##################################################
+
+##################################################
+# General Settings
+##################################################
+
+Terminator = CR;
+ReplyTimeout = 1000;
+locktimeout = 5000;
+readtimeout  = 1000;
+extrainput   = Ignore;
+
+#
+# the F-70 sends no unsolicited messages. 
+#
+
+#
+# Get functions
+#
+
+# Firmware version scan once
+getFWV {
+   out "$ID1%0<crc16>";
+   in "$ID1,%3s,%*08.1,%0<crc16>";
+}
+
+# Operating hours, resolution = 6 minutes. 
+getOH {
+   out "$ID1%0<crc16>";
+   in "$ID1,%*3c,%08.1,%0<crc16>";
+}
+
+# Three temperatures, Compressor He discharge, water outlet, water inlet
+# Please scan the first, others will be driven from here
+# $1 = record prefix, "<beamline>:<area>:"
+getTemps {
+   out "$TEA%0<crc16>";
+   in "$TEA,%03d,%(\${1}:TWO.RVAL)03d,%(\${1}:TWI.RVAL)03d,%*03d,%0<crc16>";
+}
+
+# read a temperature.  ai record, sets rval
+# $1 = temperature number, where 1 = Compressor He discharge, 2 = water outlet,
+# 3 = water inlet
+getTemp {
+   out "$TE\${1},%0<crc16>";
+   in "$TE\${1},%03d,%0<crc16>";
+}
+# read a pressure. ai record, sets rval
+# $1 = pressure number, where 1 = He return pressure, 2 = probably undefined
+getPress {
+   out "$PR\${1},%0<crc16>";
+   in "$PR\${1},%03d,%0<crc16>";
+}
+
+# read status bits.  mbbidirect or mbbi record.  
+getStat {
+   out "$STA,%0<crc16>";
+   in "$STA,%04x,%0<crc16>";
+}
+
+# send a command.  bo record. 
+# $1 = 3 letter command
+# Commands supported are ON1, OFF, RS1, CHR, CHP, POF
+sendCmd {
+   out "$\${1},%0<crc16>";
+   in "$\${1},%0<crc16>";
+}
+  
+
+
+

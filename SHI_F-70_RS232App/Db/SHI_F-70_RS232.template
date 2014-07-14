@@ -1,0 +1,27 @@
+record(ai, "$(P):OpHours") {
+   field(SCAN, "10 second")
+   field(DTYP, "stream")
+   field(INP, "@SHI_F-70_RS232.proto getOH $(PORT) 0")
+}
+
+record(stringin, "$(P):Firmware") {
+   field(PINI, "YES")
+   field(DTYP, "stream")
+   field(INP, "@SHI_F-70_RS232.proto getFWV $(PORT) 0")
+}
+
+record(mbbiDirect, "$(P):Status") {
+   field(SCAN, "1 second")
+   field(DTYP, "stream")
+   field(INP, "@SHI_F-70_RS232.proto getStat $(PORT) 0")
+   field(FLNK, "$(P):State)
+}
+
+record(mbbi, "$(P):State") {
+   field(DTYP, "Raw Soft Channel")
+   field(INP, "$(P):Status.RVAL")
+   field(NOBT, "3")
+   field(SHFT, "8")
+   field(OSTR, 
+   
+   
