@@ -1,3 +1,4 @@
+
 record(ai, "$(P):OpHours") {
    field(DESC, "Hours in operation")
    field(SCAN, "10 second")
