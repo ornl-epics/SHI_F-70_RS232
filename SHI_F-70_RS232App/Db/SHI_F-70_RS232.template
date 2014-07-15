@@ -1,4 +1,16 @@
-
+record(bi, "$(P):Error") {
+   field(DESC, "Comm Error")
+   field(DOL, "0")
+   # self resetting
+   field(HIGH, "1")
+   field(SCAN, "I/O Intr"
+   field(DTYP, "stream")
+   field(INP, "@SHI_F-70_RS232.proto getError $(PORT) 0")
+   field(ZNAM, "OK")
+   field(ZSV, "NO_ALARM")
+   field(OSV, "MAJOR")
+   field(ONAM, "Error")
+}
 record(ai, "$(P):OpHours") {
    field(DESC, "Hours in operation")
    field(SCAN, "10 second")
@@ -190,4 +202,79 @@ record(ai, "$(P):Press2") {
    field(EGU, "psig")
 }
 
+#
+# Note that ON and OFF controls work under overlapping state sets.  In the
+# case where the cold head is on but the compressor is not, "OFF" will turn
+# off the cold head, or "ON" will turn on the compressor.  Therefore, one
+# cannot read status and determine whether it is "on" or "off" in terms of 
+# which command would be appropriate.
+#
+#
+# process this PV to push the "On" message. value is irrelevant.
+#
+record(bo, "$(P):On") {
+   field(DESC, "On button")
+   field(DTYP, "stream")
+   field(DOL, "1")
+   field(OUT, "@SHI_F-70_RS232.proto sendCmd(ON1) $(PORT) 0")
+   field(ONAM, "On")
+   field(ZNAM, "On")
+}
+#
+# process this PV to push the "Off" message. value is irrelevant.
+#
+record(bo, "$(P):On") {
+   field(DESC, "Off button")
+   field(DTYP, "stream")
+   field(DOL, "1")
+   field(OUT, "@SHI_F-70_RS232.proto sendCmd(OFF) $(PORT) 0")
+   field(ONAM, "Off")
+   field(ZNAM, "Off")
+}
+#
+# process this PV to push the "Reset" message. value is irrelevant.
+#
+record(bo, "$(P):Reset") {
+   field(DESC, "Reset button")
+   field(DTYP, "stream")
+   field(DOL, "1")
+   field(OUT, "@SHI_F-70_RS232.proto sendCmd(RS1) $(PORT) 0")
+   field(ONAM, "Reset")
+   field(ZNAM, "Reset")
+}
+#
+# process this PV to push the "Cold head run" message. value is irrelevant.
+#
+record(bo, "$(P):CHR") {
+   field(DESC, "Cold head run button")
+   field(DTYP, "stream")
+   field(DOL, "1")
+   field(OUT, "@SHI_F-70_RS232.proto sendCmd(CHR) $(PORT) 0")
+   field(ONAM, "CHR")
+   field(ZNAM, "CHR")
+}
+#
+# process this PV to push the "Cold head Pause" message. value is irrelevant.
+#
+record(bo, "$(P):CHP") {
+   field(DESC, "Cold head pause button")
+   field(DTYP, "stream")
+   field(DOL, "1")
+   field(OUT, "@SHI_F-70_RS232.proto sendCmd(CHP) $(PORT) 0")
+   field(ONAM, "CHP")
+   field(ZNAM, "CHP")
+}
+#
+# process this PV to push the "Cold head Pause Off" message. value is 
+# irrelevant.
+#
+record(bo, "$(P):POF") {
+   field(DESC, "Cold head pause off button")
+   field(DTYP, "stream")
+   field(DOL, "1")
+   field(OUT, "@SHI_F-70_RS232.proto sendCmd(POF) $(PORT) 0")
+   field(ONAM, "POF")
+   field(ZNAM, "POF")
+}
+   
 

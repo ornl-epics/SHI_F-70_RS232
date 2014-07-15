@@ -99,6 +99,11 @@ sendCmd {
    out "$\${1},%0<crc16>";
    in "$\${1},%0<crc16>";
 }
+
+# look for the error message.  crc will be 3278, which is returned.
+getError {
+   in "$???,%x";
+}
   
 
 
