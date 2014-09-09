@@ -28,13 +28,13 @@ extrainput   = Ignore;
 # Firmware version scan once
 getFWV {
    out "$ID1%0<crc16>";
-   in "$ID1,%3s,%*08.1,%0<crc16>";
+   in "$ID1,%3s,%*08f,%0<crc16>";
 }
 
 # Operating hours, resolution = 6 minutes. 
 getOH {
    out "$ID1%0<crc16>";
-   in "$ID1,%*3c,%08.1,%0<crc16>";
+   in "$ID1,%*3c,%08f,%0<crc16>";
 }
 
 # Three temperatures, Compressor He discharge, water outlet, water inlet

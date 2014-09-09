@@ -1,9 +1,6 @@
 record(bi, "$(P):Error") {
    field(DESC, "Comm Error")
-   field(DOL, "0")
-   # self resetting
-   field(HIGH, "1")
-   field(SCAN, "I/O Intr"
+   field(SCAN, "I/O Intr")
    field(DTYP, "stream")
    field(INP, "@SHI_F-70_RS232.proto getError $(PORT) 0")
    field(ZNAM, "OK")
@@ -61,7 +58,7 @@ record(mbbi, "$(P):State") {
    field(SXST, "Fault Off")
    field(SXSV, "MAJOR")
    field(SVVL, "7")
-   field(SVST, "Oil Fault Off)
+   field(SVST, "Oil Fault Off")
    field(SVSV, "MAJOR")
 }
 
@@ -165,7 +162,7 @@ record(ai, "$(P):HeTemp") {
 
 record(ai, "$(P):WaterOutletTemp") {
    field(DESC, "Water outlet temperature")
-   field(SCAN, "I/O Intr"
+   field(SCAN, "I/O Intr")
    field(DTYP, "stream")
    field(INP, "@SHI_F-70_RS232.proto getTemp2 $(PORT) 0")
    field(EGU, "C")
@@ -173,7 +170,7 @@ record(ai, "$(P):WaterOutletTemp") {
 
 record(ai, "$(P):WaterInletTemp") {
    field(DESC, "Water inlet temperature")
-   field(SCAN, "I/O Intr"
+   field(SCAN, "I/O Intr")
    field(DTYP, "stream")
    field(INP, "@SHI_F-70_RS232.proto getTemp3 $(PORT) 0")
    field(EGU, "C")
@@ -181,7 +178,7 @@ record(ai, "$(P):WaterInletTemp") {
 
 record(ai, "$(P):Temp4") {
    field(DESC, "Probably not used")
-   field(SCAN, "I/O Intr"
+   field(SCAN, "I/O Intr")
    field(DTYP, "stream")
    field(INP, "@SHI_F-70_RS232.proto getTemp4 $(PORT) 0")
    field(EGU, "C")
@@ -189,14 +186,14 @@ record(ai, "$(P):Temp4") {
 
 record(ai, "$(P):HeReturnPress") {
    field(DESC, "Compressor return pressure")
-   field(SCAN, "1 second"
+   field(SCAN, "1 second")
    field(DTYP, "stream")
    field(INP, "@SHI_F-70_RS232.proto getPress1 $(PORT) 0")
    field(EGU, "psig")
 }
 record(ai, "$(P):Press2") {
    field(DESC, "Probably not used")
-   field(SCAN, "I/O Intr"
+   field(SCAN, "I/O Intr")
    field(DTYP, "stream")
    field(INP, "@SHI_F-70_RS232.proto getPress2 $(PORT) 0")
    field(EGU, "psig")
