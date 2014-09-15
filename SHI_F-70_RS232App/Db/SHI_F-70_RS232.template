@@ -12,6 +12,7 @@ record(ai, "$(P):OpHours") {
    field(DESC, "Hours in operation")
    field(SCAN, "10 second")
    field(DTYP, "stream")
+   field(PREC, "1")
    field(INP, "@SHI_F-70_RS232.proto getOH $(PORT) 0")
 }
 
@@ -35,7 +36,7 @@ record(mbbi, "$(P):State") {
    field(DTYP, "Raw Soft Channel")
    field(INP, "$(P):Status.RVAL NPP MS")
    field(NOBT, "3")
-   field(SHFT, "8")
+   field(SHFT, "9")
    field(ZRVL, "0")
    field(ZRST, "Local Off")
    field(ZRSV, "MINOR")
@@ -220,7 +221,7 @@ record(bo, "$(P):On") {
 #
 # process this PV to push the "Off" message. value is irrelevant.
 #
-record(bo, "$(P):On") {
+record(bo, "$(P):Off") {
    field(DESC, "Off button")
    field(DTYP, "stream")
    field(DOL, "1")
