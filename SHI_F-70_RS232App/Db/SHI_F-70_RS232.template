@@ -27,6 +27,7 @@ record(mbbiDirect, "$(P):Status") {
    field(DESC, "Status readout word")
    field(SCAN, "1 second")
    field(DTYP, "stream")
+   field(NOBT, "16")
    field(INP, "@SHI_F-70_RS232.proto getStat $(PORT) 0")
    field(FLNK, "$(P):State")
 }
