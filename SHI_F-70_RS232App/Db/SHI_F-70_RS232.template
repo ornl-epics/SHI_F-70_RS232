@@ -1,0 +1,279 @@
+record(bi, "$(P):Error") {
+   field(DESC, "Comm Error")
+   field(SCAN, "I/O Intr")
+   field(DTYP, "stream")
+   field(INP, "@SHI_F-70_RS232.proto getError $(PORT) 0")
+   field(ZNAM, "OK")
+   field(ZSV, "NO_ALARM")
+   field(OSV, "MAJOR")
+   field(ONAM, "Error")
+}
+record(ai, "$(P):OpHours") {
+   field(DESC, "Hours in operation")
+   field(SCAN, "10 second")
+   field(DTYP, "stream")
+   field(PREC, "1")
+   field(INP, "@SHI_F-70_RS232.proto getOH $(PORT) 0")
+}
+
+record(stringin, "$(P):Firmware") {
+   field(DESC, "Firmware version")
+   field(PINI, "YES")
+   field(DTYP, "stream")
+   field(INP, "@SHI_F-70_RS232.proto getFWV $(PORT) 0")
+}
+
+record(mbbiDirect, "$(P):Status") {
+   field(DESC, "Status readout word")
+   field(SCAN, "1 second")
+   field(DTYP, "stream")
+   field(NOBT, "16")
+   field(INP, "@SHI_F-70_RS232.proto getStat $(PORT) 0")
+   field(FLNK, "$(P):State")
+}
+
+record(mbbi, "$(P):State") {
+   field(DESC, "Operational State")
+   field(DTYP, "Raw Soft Channel")
+   field(INP, "$(P):Status.RVAL NPP MS")
+   field(NOBT, "3")
+   field(SHFT, "9")
+   field(ZRVL, "0")
+   field(ZRST, "Local Off")
+   field(ZRSV, "MINOR")
+   field(ONVL, "1")
+   field(ONST, "Local On")
+   field(ONSV, "NO_ALARM")
+   field(TWVL, "2")
+   field(TWST, "Remote Off")
+   field(TWSV, "MINOR")
+   field(THVL, "3")
+   field(THST, "Remote On")
+   field(THSV, "NO_ALARM")
+   field(FRVL, "4")
+   field(FRST, "Cold Head Run")
+   field(FRSV, "NO_ALARM")
+   field(FVVL, "5")
+   field(FVST, "Cold Head Pause")
+   field(FVSV, "NO_ALARM")
+   field(SXVL, "6")
+   field(SXST, "Fault Off")
+   field(SXSV, "MAJOR")
+   field(SVVL, "7")
+   field(SVST, "Oil Fault Off")
+   field(SVSV, "MAJOR")
+}
+
+record(bi, "$(P):Config") {
+   field(DESC, "State of configuration switch")
+   field(DTYP, "Soft Channel")
+   field(INP, "$(P):Status.BF CPP MS")
+   field(ZNAM, "Configuration 1")
+   field(ONAM, "Configuration 2")
+   field(ZSV, "NO_ALARM")
+   field(OSV, "MINOR")
+}
+
+record(bi, "$(P):Solenoid") {
+   field(DESC, "State of Solenoid")
+   field(DTYP, "Soft Channel")
+   field(INP, "$(P):Status.B8 CPP MS")
+   field(ZNAM, "Off")
+   field(ONAM, "On")
+   field(ZSV, "NO_ALARM")
+   field(OSV, "NO_ALARM")
+}
+
+record(bi, "$(P):PressureAlarm") {
+   field(DESC, "Pressure Alarm")
+   field(DTYP, "Soft Channel")
+   field(INP, "$(P):Status.B7 CPP MS")
+   field(ZNAM, "OK")
+   field(ONAM, "Alarm")
+   field(ZSV, "NO_ALARM")
+   field(OSV, "MAJOR")
+}
+
+record(bi, "$(P):OilLevelAlarm") {
+   field(DESC, "Oil Level Alarm")
+   field(DTYP, "Soft Channel")
+   field(INP, "$(P):Status.B6 CPP MS")
+   field(ZNAM, "OK")
+   field(ONAM, "Alarm")
+   field(ZSV, "NO_ALARM")
+   field(OSV, "MAJOR")
+}
+   
+record(bi, "$(P):WaterFlowAlarm") {
+   field(DESC, "Water Flow Alarm")
+   field(DTYP, "Soft Channel")
+   field(INP, "$(P):Status.B5 CPP MS")
+   field(ZNAM, "OK")
+   field(ONAM, "Alarm")
+   field(ZSV, "NO_ALARM")
+   field(OSV, "MAJOR")
+}
+   
+record(bi, "$(P):WaterTempAlarm") {
+   field(DESC, "Water Temp Alarm")
+   field(DTYP, "Soft Channel")
+   field(INP, "$(P):Status.B4 CPP MS")
+   field(ZNAM, "OK")
+   field(ONAM, "Alarm")
+   field(ZSV, "NO_ALARM")
+   field(OSV, "MAJOR")
+}
+
+record(bi, "$(P):FuseAlarm") {
+   field(DESC, "Phase Sequence/Fuse Alarm")
+   field(DTYP, "Soft Channel")
+   field(INP, "$(P):Status.B2 CPP MS")
+   field(ZNAM, "OK")
+   field(ONAM, "Alarm")
+   field(ZSV, "NO_ALARM")
+   field(OSV, "MAJOR")
+}
+
+record(bi, "$(P):MotorTempAlarm") {
+   field(DESC, "Motor Temp Alarm")
+   field(DTYP, "Soft Channel")
+   field(INP, "$(P):Status.B1 CPP MS")
+   field(ZNAM, "OK")
+   field(ONAM, "Alarm")
+   field(ZSV, "NO_ALARM")
+   field(OSV, "MAJOR")
+}
+
+record(bi, "$(P):OnOff") {
+   field(DESC, "System on/off")
+   field(DTYP, "Soft Channel")
+   field(INP, "$(P):Status.B0 CPP MS")
+   field(ZNAM, "Off")
+   field(ONAM, "On")
+   field(ZSV, "MINOR")
+   field(OSV, "NO_ALARM")
+}
+
+record(ai, "$(P):HeTemp") {
+   field(DESC, "Compressor Capsule discharge temp")
+   field(SCAN, "1 second")
+   field(DTYP, "stream")
+   field(INP, "@SHI_F-70_RS232.proto getTemp1 $(PORT) 0")
+   field(EGU, "C")
+}
+
+record(ai, "$(P):WaterOutletTemp") {
+   field(DESC, "Water outlet temperature")
+   field(SCAN, "I/O Intr")
+   field(DTYP, "stream")
+   field(INP, "@SHI_F-70_RS232.proto getTemp2 $(PORT) 0")
+   field(EGU, "C")
+}
+
+record(ai, "$(P):WaterInletTemp") {
+   field(DESC, "Water inlet temperature")
+   field(SCAN, "I/O Intr")
+   field(DTYP, "stream")
+   field(INP, "@SHI_F-70_RS232.proto getTemp3 $(PORT) 0")
+   field(EGU, "C")
+}
+
+record(ai, "$(P):Temp4") {
+   field(DESC, "Probably not used")
+   field(SCAN, "I/O Intr")
+   field(DTYP, "stream")
+   field(INP, "@SHI_F-70_RS232.proto getTemp4 $(PORT) 0")
+   field(EGU, "C")
+}
+
+record(ai, "$(P):HeReturnPress") {
+   field(DESC, "Compressor return pressure")
+   field(SCAN, "1 second")
+   field(DTYP, "stream")
+   field(INP, "@SHI_F-70_RS232.proto getPress1 $(PORT) 0")
+   field(EGU, "psig")
+}
+record(ai, "$(P):Press2") {
+   field(DESC, "Probably not used")
+   field(SCAN, "I/O Intr")
+   field(DTYP, "stream")
+   field(INP, "@SHI_F-70_RS232.proto getPress2 $(PORT) 0")
+   field(EGU, "psig")
+}
+
+#
+# Note that ON and OFF controls work under overlapping state sets.  In the
+# case where the cold head is on but the compressor is not, "OFF" will turn
+# off the cold head, or "ON" will turn on the compressor.  Therefore, one
+# cannot read status and determine whether it is "on" or "off" in terms of 
+# which command would be appropriate.
+#
+#
+# process this PV to push the "On" message. value is irrelevant.
+#
+record(bo, "$(P):On") {
+   field(DESC, "On button")
+   field(DTYP, "stream")
+   field(DOL, "1")
+   field(OUT, "@SHI_F-70_RS232.proto sendCmd(ON1) $(PORT) 0")
+   field(ONAM, "On")
+   field(ZNAM, "On")
+}
+#
+# process this PV to push the "Off" message. value is irrelevant.
+#
+record(bo, "$(P):Off") {
+   field(DESC, "Off button")
+   field(DTYP, "stream")
+   field(DOL, "1")
+   field(OUT, "@SHI_F-70_RS232.proto sendCmd(OFF) $(PORT) 0")
+   field(ONAM, "Off")
+   field(ZNAM, "Off")
+}
+#
+# process this PV to push the "Reset" message. value is irrelevant.
+#
+record(bo, "$(P):Reset") {
+   field(DESC, "Reset button")
+   field(DTYP, "stream")
+   field(DOL, "1")
+   field(OUT, "@SHI_F-70_RS232.proto sendCmd(RS1) $(PORT) 0")
+   field(ONAM, "Reset")
+   field(ZNAM, "Reset")
+}
+#
+# process this PV to push the "Cold head run" message. value is irrelevant.
+#
+record(bo, "$(P):CHR") {
+   field(DESC, "Cold head run button")
+   field(DTYP, "stream")
+   field(DOL, "1")
+   field(OUT, "@SHI_F-70_RS232.proto sendCmd(CHR) $(PORT) 0")
+   field(ONAM, "CHR")
+   field(ZNAM, "CHR")
+}
+#
+# process this PV to push the "Cold head Pause" message. value is irrelevant.
+#
+record(bo, "$(P):CHP") {
+   field(DESC, "Cold head pause button")
+   field(DTYP, "stream")
+   field(DOL, "1")
+   field(OUT, "@SHI_F-70_RS232.proto sendCmd(CHP) $(PORT) 0")
+   field(ONAM, "CHP")
+   field(ZNAM, "CHP")
+}
+#
+# process this PV to push the "Cold head Pause Off" message. value is 
+# irrelevant.
+#
+record(bo, "$(P):POF") {
+   field(DESC, "Cold head pause off button")
+   field(DTYP, "stream")
+   field(DOL, "1")
+   field(OUT, "@SHI_F-70_RS232.proto sendCmd(POF) $(PORT) 0")
+   field(ONAM, "POF")
+   field(ZNAM, "POF")
+}
+   
+
