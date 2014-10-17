@@ -212,6 +212,7 @@ record(ai, "$(P):Press2") {
 # process this PV to push the "On" message. value is irrelevant.
 #
 record(bo, "$(P):On") {
+   field(ASG, "BEAMLINE")
    field(DESC, "On button")
    field(DTYP, "stream")
    field(DOL, "1")
@@ -223,6 +224,7 @@ record(bo, "$(P):On") {
 # process this PV to push the "Off" message. value is irrelevant.
 #
 record(bo, "$(P):Off") {
+   field(ASG, "BEAMLINE")
    field(DESC, "Off button")
    field(DTYP, "stream")
    field(DOL, "1")
@@ -234,6 +236,7 @@ record(bo, "$(P):Off") {
 # process this PV to push the "Reset" message. value is irrelevant.
 #
 record(bo, "$(P):Reset") {
+   field(ASG, "BEAMLINE")
    field(DESC, "Reset button")
    field(DTYP, "stream")
    field(DOL, "1")
@@ -245,6 +248,7 @@ record(bo, "$(P):Reset") {
 # process this PV to push the "Cold head run" message. value is irrelevant.
 #
 record(bo, "$(P):CHR") {
+   field(ASG, "BEAMLINE")
    field(DESC, "Cold head run button")
    field(DTYP, "stream")
    field(DOL, "1")
@@ -256,6 +260,7 @@ record(bo, "$(P):CHR") {
 # process this PV to push the "Cold head Pause" message. value is irrelevant.
 #
 record(bo, "$(P):CHP") {
+   field(ASG, "BEAMLINE")
    field(DESC, "Cold head pause button")
    field(DTYP, "stream")
    field(DOL, "1")
@@ -268,6 +273,7 @@ record(bo, "$(P):CHP") {
 # irrelevant.
 #
 record(bo, "$(P):POF") {
+   field(ASG, "BEAMLINE")
    field(DESC, "Cold head pause off button")
    field(DTYP, "stream")
    field(DOL, "1")
