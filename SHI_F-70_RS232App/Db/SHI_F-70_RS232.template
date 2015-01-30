@@ -144,6 +144,14 @@ record(bi, "$(P):MotorTempAlarm") {
    field(OSV, "MAJOR")
 }
 
+record(calc, "$(P):AlarmSum") {
+   field(CALC, "A & 246")
+   field(INPA, "$(P):Status CPP MS")
+   field(HIGH, "0.5")
+   field(LOW, "0.0")
+   field(HSV, "MAJOR")
+}
+
 record(bi, "$(P):OnOff") {
    field(DESC, "System on/off")
    field(DTYP, "Soft Channel")
@@ -167,6 +175,7 @@ record(ai, "$(P):WaterOutletTemp") {
    field(SCAN, "I/O Intr")
    field(DTYP, "stream")
    field(INP, "@SHI_F-70_RS232.proto getTemp2 $(PORT) 0")
+   info (archive, "monitor, 00:00:01, VAL")
    field(EGU, "C")
 }
 
@@ -175,6 +184,7 @@ record(ai, "$(P):WaterInletTemp") {
    field(SCAN, "I/O Intr")
    field(DTYP, "stream")
    field(INP, "@SHI_F-70_RS232.proto getTemp3 $(PORT) 0")
+   info (archive, "monitor, 00:00:01, VAL")
    field(EGU, "C")
 }
 
