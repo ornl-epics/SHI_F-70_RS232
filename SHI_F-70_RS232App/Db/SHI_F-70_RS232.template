@@ -14,6 +14,9 @@ record(ai, "$(P):OpHours") {
    field(DTYP, "stream")
    field(PREC, "1")
    field(INP, "@SHI_F-70_RS232.proto getOH $(PORT) 0")
+   field(HIHI, "$(MAX_OPHOURS=20000)")
+   field(HHSV, "MAJOR")
+   info(autosaveFields, "HIHI")
 }
 
 record(stringin, "$(P):Firmware") {
@@ -175,8 +178,13 @@ record(ai, "$(P):WaterOutletTemp") {
    field(SCAN, "I/O Intr")
    field(DTYP, "stream")
    field(INP, "@SHI_F-70_RS232.proto getTemp2 $(PORT) 0")
-   info (archive, "monitor, 00:00:01, VAL")
    field(EGU, "C")
+   field(LOLO, "$(MIN_WATEROUT=0)")
+   field(HIHI, "$(MAX_WATEROUT=30)")
+   field(LLSV, "MAJOR")
+   field(HHSV, "MAJOR")
+   info(autosaveFields, "LOLO HIHI")
+   info(archive, "monitor, 00:00:01, VAL")
 }
 
 record(ai, "$(P):WaterInletTemp") {
@@ -184,8 +192,13 @@ record(ai, "$(P):WaterInletTemp") {
    field(SCAN, "I/O Intr")
    field(DTYP, "stream")
    field(INP, "@SHI_F-70_RS232.proto getTemp3 $(PORT) 0")
-   info (archive, "monitor, 00:00:01, VAL")
    field(EGU, "C")
+   field(LOLO, "$(MIN_WATERIN=5)")
+   field(HIHI, "$(MAX_WATERIN=30)")
+   field(LLSV, "MAJOR")
+   field(HHSV, "MAJOR")
+   info(autosaveFields, "LOLO HIHI")
+   info(archive, "monitor, 00:00:01, VAL")
 }
 
 record(ai, "$(P):Temp4") {
@@ -292,4 +305,30 @@ record(bo, "$(P):POF") {
    field(ZNAM, "POF")
 }
    
+
+
+# Summarize the AlarmSum as well as the operation hours and
+# water in/out temperature.
+record(calc, "$(P):Alarm_Summary_Calc") {
+  field(INPA, "$(P):AlarmSum CP MS")
+  field(INPB, "$(P):OpHours CP MS")
+  field(INPC, "$(P):WaterOutletTemp CP MS")
+  field(INPD, "$(P):WaterInletTemp CP MS")
+  field(CALC, "A")
+  field(FLNK, "$(P):Alarm_Summary_Calc2")  
+}
+record(calcout, "$(P):Alarm_Summary_Calc2") {
+  field(INPA, "$(P):Alarm_Summary_Calc.STAT")
+  field(CALC, "A!=0?1:0")
+  field(DOPT, "Use CALC")
+  field(OOPT, "Every Time")
+  field(OUT, "$(P):Alarm_Summary PP")
+}
+record(bi, "$(P):Alarm_Summary") {
+  field(ZNAM, "No Alarm")
+  field(ONAM, "Alarm")
+  field(OSV, "MAJOR")
+  field(PINI, "YES")
+  field(VAL, "0")  
+}
 
