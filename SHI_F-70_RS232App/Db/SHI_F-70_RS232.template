@@ -311,9 +311,8 @@ record(bo, "$(P):POF") {
 # water in/out temperature.
 record(calc, "$(P):Alarm_Summary_Calc") {
   field(INPA, "$(P):AlarmSum CP MS")
-  field(INPB, "$(P):OpHours CP MS")
-  field(INPC, "$(P):WaterOutletTemp CP MS")
-  field(INPD, "$(P):WaterInletTemp CP MS")
+  field(INPB, "$(P):WaterOutletTemp CP MS")
+  field(INPC, "$(P):WaterInletTemp CP MS")
   field(CALC, "A")
   field(FLNK, "$(P):Alarm_Summary_Calc2")  
 }
