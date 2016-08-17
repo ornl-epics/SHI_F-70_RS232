@@ -13,6 +13,7 @@ include $(TOP)/configure/CONFIG
 #DB += xxx.db
 DB_INSTALLS += ../SHI_F-70_RS232.proto  
 DB += SHI_F-70_RS232.template
+DB += SHI_F-70_RS232_monitor.template SHI_F-70_RS232_control.template
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add

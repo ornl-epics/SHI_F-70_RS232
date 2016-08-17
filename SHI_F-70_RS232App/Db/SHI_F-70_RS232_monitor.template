@@ -1,11 +1,7 @@
 #
-# This template has all monitor and control points for the F70. This assumes
-# configuration mode is 1. 
-#
-# This template is kept for backward-compatibility. The two templates 
-# SHI_F-70_RS232_control.template and SHI_F-70_RS232_monitor.template split
-# the functionality of this template into those that will work under 
-# configuration mode 2 (monitor only) and those that will not (control)
+# This template has monitor-only capability, no control. It sould work 
+# in configuration mode 2, in which one can control the compressor through 
+# the db25 connector.
 #
 record(bi, "$(P):Error") {
    field(DESC, "Comm Error")
@@ -232,89 +228,6 @@ record(ai, "$(P):Press2") {
    field(INP, "@SHI_F-70_RS232.proto getPress2 $(PORT) 0")
    field(EGU, "psig")
 }
-
-#
-# Note that ON and OFF controls work under overlapping state sets.  In the
-# case where the cold head is on but the compressor is not, "OFF" will turn
-# off the cold head, or "ON" will turn on the compressor.  Therefore, one
-# cannot read status and determine whether it is "on" or "off" in terms of 
-# which command would be appropriate.
-#
-#
-# process this PV to push the "On" message. value is irrelevant.
-#
-record(bo, "$(P):On") {
-   field(ASG, "BEAMLINE")
-   field(DESC, "On button")
-   field(DTYP, "stream")
-   field(DOL, "1")
-   field(OUT, "@SHI_F-70_RS232.proto sendCmd(ON1) $(PORT) 0")
-   field(ONAM, "On")
-   field(ZNAM, "On")
-}
-#
-# process this PV to push the "Off" message. value is irrelevant.
-#
-record(bo, "$(P):Off") {
-   field(ASG, "BEAMLINE")
-   field(DESC, "Off button")
-   field(DTYP, "stream")
-   field(DOL, "1")
-   field(OUT, "@SHI_F-70_RS232.proto sendCmd(OFF) $(PORT) 0")
-   field(ONAM, "Off")
-   field(ZNAM, "Off")
-}
-#
-# process this PV to push the "Reset" message. value is irrelevant.
-#
-record(bo, "$(P):Reset") {
-   field(ASG, "BEAMLINE")
-   field(DESC, "Reset button")
-   field(DTYP, "stream")
-   field(DOL, "1")
-   field(OUT, "@SHI_F-70_RS232.proto sendCmd(RS1) $(PORT) 0")
-   field(ONAM, "Reset")
-   field(ZNAM, "Reset")
-}
-#
-# process this PV to push the "Cold head run" message. value is irrelevant.
-#
-record(bo, "$(P):CHR") {
-   field(ASG, "BEAMLINE")
-   field(DESC, "Cold head run button")
-   field(DTYP, "stream")
-   field(DOL, "1")
-   field(OUT, "@SHI_F-70_RS232.proto sendCmd(CHR) $(PORT) 0")
-   field(ONAM, "CHR")
-   field(ZNAM, "CHR")
-}
-#
-# process this PV to push the "Cold head Pause" message. value is irrelevant.
-#
-record(bo, "$(P):CHP") {
-   field(ASG, "BEAMLINE")
-   field(DESC, "Cold head pause button")
-   field(DTYP, "stream")
-   field(DOL, "1")
-   field(OUT, "@SHI_F-70_RS232.proto sendCmd(CHP) $(PORT) 0")
-   field(ONAM, "CHP")
-   field(ZNAM, "CHP")
-}
-#
-# process this PV to push the "Cold head Pause Off" message. value is 
-# irrelevant.
-#
-record(bo, "$(P):POF") {
-   field(ASG, "BEAMLINE")
-   field(DESC, "Cold head pause off button")
-   field(DTYP, "stream")
-   field(DOL, "1")
-   field(OUT, "@SHI_F-70_RS232.proto sendCmd(POF) $(PORT) 0")
-   field(ONAM, "POF")
-   field(ZNAM, "POF")
-}
-   
-
 
 # Summarize the AlarmSum as well as the operation hours and
 # water in/out temperature.
