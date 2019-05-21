@@ -27,14 +27,14 @@ extrainput   = Ignore;
 
 # Firmware version scan once
 getFWV {
-   out "$ID1%0<crc16ri>";
-   in "$ID1,%3c,%*08f,000,%0<crc16ri>";
+   out "$ID1%0<modbus>";
+   in "$ID1,%3c,%*08f,000,%0<modbus>";
 }
 
 # Operating hours, resolution = 6 minutes. 
 getOH {
-   out "$ID1%0<crc16ri>";
-   in "$ID1,%*3c,%08f,000,%0<crc16ri>";
+   out "$ID1%0<modbus>";
+   in "$ID1,%*3c,%08f,000,%0<modbus>";
 }
 
 # Three temperatures, Compressor He discharge, water outlet, water inlet
@@ -42,62 +42,62 @@ getOH {
 # the right names...
 # $1 = record prefix, "<beamline>:<area>:"
 getTempsP {
-   out "$TEA%0<crc16ri>";
-   in "$TEA,%03d,%(\${1}:TWO.RVAL)03d,%(\${1}:TWI.RVAL)03d,%*03d,%0<crc16ri>";
+   out "$TEA%0<modbus>";
+   in "$TEA,%03d,%(\${1}:TWO.RVAL)03d,%(\${1}:TWI.RVAL)03d,%*03d,%0<modbus>";
 }
 
 #
 # Three or four temperatures, set up for interrupt i/o scanning for 2, 3, and 4
 #
 getTemp1 {
-   out "$TEA%0<crc16ri>";
-   in "$TEA,%03d,%*03d,%*03d,%*03d,%0<crc16ri>";
+   out "$TEA%0<modbus>";
+   in "$TEA,%03d,%*03d,%*03d,%*03d,%0<modbus>";
 }
 getTemp2 {
-   in "$TEA,%*03d,%03d,%*03d,%*03d,%0<crc16ri>";
+   in "$TEA,%*03d,%03d,%*03d,%*03d,%0<modbus>";
 }
 getTemp3 {
-   in "$TEA,%*03d,%*03d,%03d,%*03d,%0<crc16ri>";
+   in "$TEA,%*03d,%*03d,%03d,%*03d,%0<modbus>";
 }
 getTemp4 {
-   in "$TEA,%*03d,%*03d,%*03d,%03d,%0<crc16ri>";
+   in "$TEA,%*03d,%*03d,%*03d,%03d,%0<modbus>";
 }
 
 getPress1 {
-   out "$PRA%0<crc16ri>";
-   in "$PRA,%03d,%*03d,%0<crc16ri>";
+   out "$PRA%0<modbus>";
+   in "$PRA,%03d,%*03d,%0<modbus>";
 }
 
 getPress2 {
-   in "$PRA,%*03d,%03d,%0<crc16ri>";
+   in "$PRA,%*03d,%03d,%0<modbus>";
 }
 
 # read a temperature.  ai record, sets rval
 # $1 = temperature number, where 1 = Compressor He discharge, 2 = water outlet,
 # 3 = water inlet
 getTemp {
-   out "$TE\${1}%0<crc16ri>";
-   in "$TE\${1},%03d,%0<crc16ri>";
+   out "$TE\${1}%0<modbus>";
+   in "$TE\${1},%03d,%0<modbus>";
 }
 # read a pressure. ai record, sets rval
 # $1 = pressure number, where 1 = He return pressure, 2 = probably undefined
 getPress {
-   out "$PR\${1}%0<crc16ri>";
-   in "$PR\${1},%03d,%0<crc16ri>";
+   out "$PR\${1}%0<modbus>";
+   in "$PR\${1},%03d,%0<modbus>";
 }
 
 # read status bits.  mbbidirect or mbbi record.  
 getStat {
-   out "$STA%0<crc16ri>";
-   in "$STA,%04x,%0<crc16ri>";
+   out "$STA%0<modbus>";
+   in "$STA,%04x,%0<modbus>";
 }
 
 # send a command.  bo record. 
 # $1 = 3 letter command
 # Commands supported are ON1, OFF, RS1, CHR, CHP, POF
 sendCmd {
-   out "$\${1}%0<crc16ri>";
-   in "$\${1},%0<crc16ri>";
+   out "$\${1}%0<modbus>";
+   in "$\${1},%0<modbus>";
 }
 
 # look for the error message.  crc will be 3278, which is returned.
